@@ -11,6 +11,8 @@ func init() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
+    client := NewClient(r)
+
     params := url.Values{}
     params.Set("spt", "homes")
     params.Set("status", "110001")
@@ -47,7 +49,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
     params.Set("zoom", "10")
 
 
-    body, err := getResults(params)
+    body, err := client.getResults(params)
     fmt.Fprint(w, err)
     fmt.Fprint(w, body)
 }
