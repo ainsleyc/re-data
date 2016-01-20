@@ -51,5 +51,5 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
     body, err := client.getResults(params)
     fmt.Fprint(w, err)
-    fmt.Fprint(w, body)
+    fmt.Fprint(w, string(body))
 }
