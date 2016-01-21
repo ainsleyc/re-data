@@ -49,7 +49,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
     params.Set("zoom", "10")
 
 
-    body, err := client.getResults(params)
+    body, err := client.GetResults(params)
+    data, _ := ParseResults(body)
     fmt.Fprint(w, err)
-    fmt.Fprint(w, string(body))
+    fmt.Fprint(w, string(data))
 }

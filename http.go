@@ -5,11 +5,9 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/bitly/go-simplejson"
   "golang.org/x/net/context"
   "google.golang.org/appengine"
   "google.golang.org/appengine/urlfetch"
-	// "github.com/asaskevich/govalidator"
 )
 
 type Client struct {
@@ -23,7 +21,7 @@ func NewClient(r *http.Request) Client {
   return Client{ctx, client}
 }
 
-func (c Client) getResults(params url.Values) ([]byte, error) {
+func (c Client) GetResults(params url.Values) ([]byte, error) {
   baseUrl := "http://www.zillow.com/search/GetResults.htm"
   fullUrl := baseUrl + "?" + params.Encode()
 
@@ -41,14 +39,6 @@ func (c Client) getResults(params url.Values) ([]byte, error) {
 	// if resp.StatusCode != 200 {
 	// 	return nil, ErrHttpResponse(fullUrl, resp.StatusCode, body)
 	// }
-	respJson, _ := simplejson.NewJson(body)
-	// data := respJson.Get("response").Get("data")
-	// if len(data.MustArray()) <= 0 {
-	// 	t.Error("Valid Get query returned no results")
-	// } else {
-    // paramStr, _ := json.Marshal(params)
-	data, _ := respJson.EncodePretty() 
 
-	// return body, err 
-	return data, err 
+	return body, err 
 }
