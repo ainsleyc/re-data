@@ -51,6 +51,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
     body, err := client.GetResults(params)
     data, _ := ParseResults(body)
-    fmt.Fprint(w, err)
+    fmt.Println(w, err)
     fmt.Fprint(w, string(data))
 }
