@@ -4,9 +4,28 @@ import (
 	"github.com/bitly/go-simplejson"
 )
 
+type PropertyResult struct {
+  Id string
+  Price int 
+  Beds int
+  Baths int
+  SqFt int
+}
+
 func ParseResults (data []byte) ([]byte, error) {
   respJson, _ := simplejson.NewJson(data)
-  results, err := respJson.Get("map").Get("properties").EncodePretty() 
+  properties := respJson.Get("map").Get("properties")
+
+  // results := []PropertyResult{} 
+  // for _, property := range properties.MustArray() {
+  //   results = append(results, PropertyResult{
+  //     "blah",
+  //     1,
+  //     2,
+  //     3,
+  //     4,
+  //   })
+  // }
 
   // data structure
   // [
@@ -33,5 +52,6 @@ func ParseResults (data []byte) ([]byte, error) {
   //   ]
   // ]
 
-  return results, err 
+  test, err := properties.EncodePretty()
+  return test, err 
 }

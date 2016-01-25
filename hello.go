@@ -48,7 +48,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
     params.Set("isMapSearch", "1")
     params.Set("zoom", "10")
 
-
     body, err := client.GetResults(params)
     data, _ := ParseResults(body)
     fmt.Println(w, err)
