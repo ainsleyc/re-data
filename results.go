@@ -10,9 +10,9 @@ func ParseResults (data []byte) ([]byte, error) {
 
   // data structure
   // [
-  //   ?
-  //   ?
-  //   ?
+  //   Location X 
+  //   Location Y 
+  //   Location Z 
   //   Price ($ K/?)
   //   ?
   //   ?
@@ -21,13 +21,14 @@ func ParseResults (data []byte) ([]byte, error) {
   //     Price ($ K/?)
   //     Beds
   //     Baths
-  //     ?
-  //     ?
+  //     Square Feet 
+  //     (seems to be always false) 
   //     Image URL
   //     Size string
   //     [
-  //       ?
-  //       Open House
+  //       Extra Information Type
+  //         1 = Open House Time
+  //         ...
   //     ]
   //   ]
   // ]
