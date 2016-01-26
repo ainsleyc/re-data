@@ -4,6 +4,7 @@ import (
     "fmt"
     "net/http"
 	  "net/url"
+    // "encoding/json"
 )
 
 func init() {
@@ -48,8 +49,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
     params.Set("isMapSearch", "1")
     params.Set("zoom", "10")
 
-    body, err := client.GetResults(params)
+    body, _ := client.GetResults(params)
     data, _ := ParseResults(body)
-    fmt.Println(w, err)
+    // dataJson, _ := json.Marshal(data)
     fmt.Fprint(w, string(data))
 }
