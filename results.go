@@ -1,14 +1,18 @@
 package redata 
 
 import (
-  "fmt"
+  "strconv"
+  "strings"
+  "crypto/sha1"
   "encoding/json"
+  "encoding/base32"
 
 	"github.com/bitly/go-simplejson"
 )
 
 type PropertyResult struct {
   Id string
+  PriceStr string
   Price int64 
   Beds int64
   Baths int64
@@ -21,19 +25,15 @@ func ParseResults (data []byte) ([]byte, error) {
 
   results := []PropertyResult{} 
   for _, property := range properties.MustArray() {
-    propertyArray := property.([]interface{})
-    coordX, _ := propertyArray[0].(json.Number).Int64()
-    coordY, _ := propertyArray[1].(json.Number).Int64()
-    coordZ, _ := propertyArray[2].(json.Number).Int64()
-    fmt.Println(propertyArray)
-    results = append(results, PropertyResult{
-      "blah",
-      coordX,
-      coordY,
-      coordZ,
-      4,
-    })
+    p, _ := parseProperty(property.([]interface{}))
+    results = append(results, p) 
   }
+
+  resultsStr, _ := json.Marshal(results) 
+  return resultsStr, nil 
+}
+
+func parseProperty (property []interface{}) (PropertyResult, error) {
 
   // data structure
   // [
@@ -60,9 +60,25 @@ func ParseResults (data []byte) ([]byte, error) {
   //   ]
   // ]
 
-  // test, err := properties.EncodePretty()
-  // return test, err 
+  coordX, _ := property[0].(json.Number).Int64()
+  coordY, _ := property[1].(json.Number).Int64()
+  coordZ, _ := property[2].(json.Number).Int64()
+  priceStr, _ := property[3].(string)
+  coords := []string{
+    strconv.FormatInt(coordX, 10),
+    strconv.FormatInt(coordY, 10),
+    strconv.FormatInt(coordZ, 10),
+  }
+  h := sha1.New()
+  h.Write([]byte(strings.Join(coords, "")))
+  id := strings.ToLower(base32.HexEncoding.EncodeToString((h.Sum(nil))))
 
-  resultsStr, _ := json.Marshal(results) 
-  return resultsStr, nil 
+  return PropertyResult{
+    id,
+    priceStr,
+    coordX,
+    coordY,
+    coordZ,
+    4,
+  }, nil
 }
