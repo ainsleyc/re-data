@@ -82,3 +82,6 @@ func parseProperty (property []interface{}) (PropertyResult, error) {
     4,
   }, nil
 }
+
+func parsePrice (price string) int {
+}
