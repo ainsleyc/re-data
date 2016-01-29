@@ -6,6 +6,7 @@ import (
   "crypto/sha1"
   "encoding/json"
   "encoding/base32"
+  "log"
 
 	"github.com/bitly/go-simplejson"
 )
@@ -73,6 +74,8 @@ func parseProperty (property []interface{}) (PropertyResult, error) {
   h.Write([]byte(strings.Join(coords, "")))
   id := strings.ToLower(base32.HexEncoding.EncodeToString((h.Sum(nil))))
 
+  log.Println(id)
+
   return PropertyResult{
     id,
     priceStr,
@@ -84,4 +87,5 @@ func parseProperty (property []interface{}) (PropertyResult, error) {
 }
 
 func parsePrice (price string) int {
+  return 0
 }
