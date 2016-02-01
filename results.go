@@ -7,6 +7,7 @@ import (
   "encoding/json"
   "encoding/base32"
   "log"
+  "regexp"
 
 	"github.com/bitly/go-simplejson"
 )
@@ -87,5 +88,13 @@ func parseProperty (property []interface{}) (PropertyResult, error) {
 }
 
 func ParsePriceString (price string) int {
-  return 0
+  re := regexp.MustCompile("\\$(\\d+)([KM])")
+  matches := re.FindAllStringSubmatch(price, -1)
+  log.Println(matches)
+  value, _ := strconv.Atoi(matches[0][1])
+  if matches[0][2] == "K" {
+    value = value * 1000
+  }
+  log.Println(value)
+  return value 
 }
