@@ -95,6 +95,9 @@ func ParsePriceString (price string) int {
   if matches[0][2] == "K" {
     value = value * 1000
   }
+  if matches[0][2] == "M" {
+    value = value * 1000000
+  }
   log.Println(value)
   return value 
 }

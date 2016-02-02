@@ -12,7 +12,7 @@ func TestParsePriceString_ShouldReturnCorrectResult(t *testing.T) {
     expected int
   }{
     { "$359K", 359000 },
-    // { "$5M", 5000000 },
+    { "$5M", 5000000 },
   }
 
   for _, test := range tests {
