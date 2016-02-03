@@ -13,6 +13,7 @@ func TestParsePriceString_ShouldReturnCorrectResult(t *testing.T) {
   }{
     { "$359K", 359000 },
     { "$5M", 5000000 },
+    // { "$327.89K", 327890 },
   }
 
   for _, test := range tests {
@@ -22,5 +23,4 @@ func TestParsePriceString_ShouldReturnCorrectResult(t *testing.T) {
     }
   }
 }
-
 

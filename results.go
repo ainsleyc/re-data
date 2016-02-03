@@ -88,14 +88,15 @@ func parseProperty (property []interface{}) (PropertyResult, error) {
 }
 
 func ParsePriceString (price string) int {
-  re := regexp.MustCompile("\\$(\\d+)([KM])")
+  re := regexp.MustCompile("\\$(\\d+)\\.?(\\d+)?([KM])")
   matches := re.FindAllStringSubmatch(price, -1)
   log.Println(matches)
   value, _ := strconv.Atoi(matches[0][1])
-  if matches[0][2] == "K" {
+  // decimal, _ := strconv.Atoi(matches[0][2])
+  if matches[0][3] == "K" {
     value = value * 1000
   }
-  if matches[0][2] == "M" {
+  if matches[0][3] == "M" {
     value = value * 1000000
   }
   log.Println(value)
