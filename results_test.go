@@ -24,3 +24,21 @@ func TestParsePriceString_ShouldReturnCorrectResult(t *testing.T) {
   }
 }
 
+func TestNormalizeDecimalString(t *testing.T) {
+  tests := []struct {
+    input string
+    expected string 
+  }{
+    { "3", "300" },
+    { "56", "560" },
+    // { "$327.89K", 327890 },
+  }
+
+  for _, test := range tests {
+    price := redata.NormalizeDecimalString(test.input)
+    if price != test.expected {
+      t.Error(price, "!=", test.expected)
+    }
+  }
+}
+

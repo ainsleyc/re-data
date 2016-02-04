@@ -102,3 +102,7 @@ func ParsePriceString (price string) int {
   log.Println(value)
   return value 
 }
+
+func NormalizeDecimalString (decimal string) string {
+  return decimal 
+}
