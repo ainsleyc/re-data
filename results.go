@@ -93,12 +93,13 @@ func ParsePriceString (price string) int {
   matches := re.FindAllStringSubmatch(price, -1)
   log.Println(matches)
   value, _ := strconv.Atoi(matches[0][1])
-  // decimal, _ := strconv.Atoi(matches[0][2])
+  decimalStr := NormalizeDecimalString(matches[0][2])
+  decimal, _ := strconv.Atoi(decimalStr)
   if matches[0][3] == "K" {
-    value = value * 1000
+    value = value * 1000 + decimal
   }
   if matches[0][3] == "M" {
-    value = value * 1000000
+    value = value * 1000000 + decimal * 1000
   }
   log.Println(value)
   return value 
