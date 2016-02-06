@@ -29,9 +29,11 @@ func TestNormalizeDecimalString(t *testing.T) {
     input string
     expected string 
   }{
+    { "", "000" },
     { "3", "300" },
     { "56", "560" },
-    // { "$327.89K", 327890 },
+    { "678", "678" },
+    { "2345", "234" },
   }
 
   for _, test := range tests {

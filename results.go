@@ -6,6 +6,7 @@ import (
   "crypto/sha1"
   "encoding/json"
   "encoding/base32"
+  "unicode/utf8"
   "log"
   "regexp"
 
@@ -104,5 +105,16 @@ func ParsePriceString (price string) int {
 }
 
 func NormalizeDecimalString (decimal string) string {
-  return decimal 
+  len := utf8.RuneCountInString(decimal)
+  switch {
+  case len == 0:
+    return "000"
+  case len == 1:
+    return decimal + "00"
+  case len == 2:
+    return decimal + "0"
+  case len > 3:
+    return decimal[0:3]
+  }
+  return decimal
 }
