@@ -15,8 +15,7 @@ import (
 
 type PropertyResult struct {
   Id string
-  PriceStr string
-  Price int64 
+  Price int 
   Beds int64
   Baths int64
   SqFt int64
@@ -80,10 +79,9 @@ func parseProperty (property []interface{}) (PropertyResult, error) {
 
   return PropertyResult{
     id,
-    priceStr,
-    coordX,
-    coordY,
-    coordZ,
+    ParsePriceString(priceStr),
+    1,
+    2,
     4,
   }, nil
 }
@@ -91,7 +89,6 @@ func parseProperty (property []interface{}) (PropertyResult, error) {
 func ParsePriceString (price string) int {
   re := regexp.MustCompile("\\$(\\d+)\\.?(\\d+)?([KM])")
   matches := re.FindAllStringSubmatch(price, -1)
-  log.Println(matches)
   value, _ := strconv.Atoi(matches[0][1])
   decimalStr := NormalizeDecimalString(matches[0][2])
   decimal, _ := strconv.Atoi(decimalStr)
@@ -101,7 +98,6 @@ func ParsePriceString (price string) int {
   if matches[0][3] == "M" {
     value = value * 1000000 + decimal * 1000
   }
-  log.Println(value)
   return value 
 }
 
