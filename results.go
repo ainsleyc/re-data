@@ -17,7 +17,7 @@ type PropertyResult struct {
   Id string
   Price int 
   Beds int64
-  Baths int64
+  Baths float64 
   SqFt int64
 }
 
@@ -75,13 +75,16 @@ func parseProperty (property []interface{}) (PropertyResult, error) {
   h.Write([]byte(strings.Join(coords, "")))
   id := strings.ToLower(base32.HexEncoding.EncodeToString((h.Sum(nil))))
 
-  log.Println(id)
+  subArray, _ := property[7].([]interface{})
+  log.Println(subArray)
+  beds, _ := subArray[1].(json.Number).Int64()
+  baths, _ := subArray[2].(json.Number).Float64()
 
   return PropertyResult{
     id,
     ParsePriceString(priceStr),
-    1,
-    2,
+    beds,
+    baths,
     4,
   }, nil
 }
