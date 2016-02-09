@@ -19,6 +19,7 @@ type PropertyResult struct {
   Beds int64
   Baths float64 
   SqFt int64
+  SqFtStr string
 }
 
 func ParseResults (data []byte) ([]byte, error) {
@@ -79,6 +80,7 @@ func parseProperty (property []interface{}) (PropertyResult, error) {
   log.Println(subArray)
   beds, _ := subArray[1].(json.Number).Int64()
   baths, _ := subArray[2].(json.Number).Float64()
+  sqFtStr, _ := subArray[6].(string)
 
   return PropertyResult{
     id,
@@ -86,6 +88,7 @@ func parseProperty (property []interface{}) (PropertyResult, error) {
     beds,
     baths,
     4,
+    sqFtStr,
   }, nil
 }
 
