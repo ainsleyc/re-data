@@ -19,6 +19,9 @@ type PropertyResult struct {
   Beds int64
   Baths float64 
   SqFt int64
+  CoordX int64
+  CoordY int64
+  CoordZ int64
 }
 
 func ParseResults (data []byte) ([]byte, error) {
@@ -87,6 +90,9 @@ func parseProperty (property []interface{}) (PropertyResult, error) {
     beds,
     baths,
     sqFt,
+    coordX,
+    coordY,
+    coordZ,
   }, nil
 }
 
