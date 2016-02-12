@@ -19,9 +19,9 @@ func TestParsePriceString_ShouldReturnCorrectResult(t *testing.T) {
   }
 
   for _, test := range tests {
-    price := redata.ParsePriceString(test.input)
-    if price != test.expected {
-      t.Error(price, "!=", test.expected)
+    result := redata.ParsePriceString(test.input)
+    if result != test.expected {
+      t.Error(result, "!=", test.expected)
     }
   }
 }
@@ -39,9 +39,26 @@ func TestNormalizeDecimalString(t *testing.T) {
   }
 
   for _, test := range tests {
-    price := redata.NormalizeDecimalString(test.input)
-    if price != test.expected {
-      t.Error(price, "!=", test.expected)
+    result := redata.NormalizeDecimalString(test.input)
+    if result != test.expected {
+      t.Error(result, "!=", test.expected)
+    }
+  }
+}
+
+func TestNormalizeCoordinate(t *testing.T) {
+  tests := []struct {
+    input int64 
+    expected float64 
+  }{
+    { 37834748, 37.834748 },
+    { -127834748, -127.834748 },
+  }
+
+  for _, test := range tests {
+    result := redata.NormalizeCoordinate(test.input)
+    if result != test.expected {
+      t.Error(result, "!=", test.expected)
     }
   }
 }

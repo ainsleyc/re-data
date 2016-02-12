@@ -43,8 +43,8 @@ func parseProperty (property []interface{}) (PropertyResult, error) {
   // data structure
   // [
   //   Location X 
-  //   Location Y 
-  //   Location Z 
+  //   Normalized Latitute
+  //   Normalized Longitude
   //   Price ($ K/?)
   //   ?
   //   ?
@@ -124,4 +124,8 @@ func NormalizeDecimalString (decimal string) string {
     return decimal[0:3]
   }
   return decimal
+}
+
+func NormalizeCoordinate (coord int64) float64 {
+  return float64(coord) / 1000000
 }
