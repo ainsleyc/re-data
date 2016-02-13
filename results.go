@@ -41,7 +41,7 @@ func parseProperty (property []interface{}) (PropertyResult, error) {
 
   // data structure
   // [
-  //   Location X 
+  //   Location Z(?) 
   //   Normalized Latitute
   //   Normalized Longitude
   //   Price ($ K/?)
@@ -53,7 +53,7 @@ func parseProperty (property []interface{}) (PropertyResult, error) {
   //     Beds
   //     Baths
   //     Square Feet 
-  //     (seems to be always false) 
+  //     ? (seems to be always false) 
   //     Image URL
   //     Size string
   //     [
